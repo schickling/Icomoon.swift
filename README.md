@@ -18,7 +18,7 @@ Use your custom Icomoon fonts with Swift
 
 ### API
 
-The generated framework extends `UIFont`, `UIImage` and `String` and generates an `enum Icon`. Cases are automatically created based on the name on Icomoon. (Example: `my-search` becomes `Icon.MySearch`)
+The generated framework extends `UIFont`, `UIImage` and `String` and generates an `enum Icon`. Cases are automatically created based on the name on Icomoon. (Example: `my-search` becomes `.MySearch`)
 
 ```swift
 import Icomoon
