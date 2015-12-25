@@ -1,5 +1,5 @@
 # Icomoon.swift
-Use your custom **Icomoon fonts with Swift** - auto-generates type safe enums for each icon
+Use your **Icomoon fonts with Swift** - auto-generates type safe enums for each icon
 
 ## Installation
 
