@@ -1,5 +1,5 @@
 # Icomoon.swift
-Use your custom Icomoon fonts with Swift
+Use your custom Icomoon fonts with Swift - auto-generates type safe enums
 
 ## Installation
 
