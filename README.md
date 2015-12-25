@@ -15,4 +15,15 @@ Use your custom Icomoon fonts with Swift
 1. Download your font file from Icomoon (usally called `icomoon.zip`)
 2. Run `icomoon-swift icomoon.zip`
 3. Add the generated `Icomoon.framework` to your Xcode project and create a [copy-frameworks](https://github.com/Carthage/Carthage#if-youre-building-for-ios) step to your build phases
-4. Be productive 🤖🎉
+
+### API
+
+The generated framework extends `UIFont`, `UIImage` and `String` and generates an `enum Icon`. Cases are automatically created based on the name on Icomoon. (Example: `my-search` becomes `Icon.MySearch`)
+
+```swift
+import Icomoon
+
+let searchIcon = UILabel()
+searchIcon.text = String.iconWithName(.MySearch)
+searchIcon.font = UIFont.iconOfSize(30)
+```
