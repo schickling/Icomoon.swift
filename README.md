@@ -14,7 +14,7 @@ Use your custom **Icomoon fonts with Swift** - auto-generates type safe enums
 
 1. Download your font file from Icomoon (usally called `icomoon.zip`)
 2. Run `icomoon-swift icomoon.zip`
-3. Add the generated `Icomoon.framework` to your Xcode project and create a [copy-frameworks](https://github.com/Carthage/Carthage#if-youre-building-for-ios) step to your build phases
+3. Add the generated `Icomoon.framework` to your Xcode project and create a [copy-frameworks](https://github.com/Carthage/Carthage#if-youre-building-for-ios) step in your build phases
 
 ### API
 
