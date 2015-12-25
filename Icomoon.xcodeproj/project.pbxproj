@@ -8,12 +8,18 @@
 
 /* Begin PBXBuildFile section */
 		8FFB562F1C2D7BFB00D2BE62 /* Icomoon.h in Headers */ = {isa = PBXBuildFile; fileRef = 8FFB562E1C2D7BFB00D2BE62 /* Icomoon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		8FFB56441C2D852F00D2BE62 /* Icomoon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFB56431C2D852F00D2BE62 /* Icomoon.swift */; };
+		8FFB56521C2D8C3F00D2BE62 /* Font.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFB56511C2D8C3F00D2BE62 /* Font.swift */; };
+		8FFB56551C2DAC3D00D2BE62 /* font.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8FFB56541C2DAC3D00D2BE62 /* font.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		8FFB562B1C2D7BFB00D2BE62 /* Icomoon.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Icomoon.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8FFB562E1C2D7BFB00D2BE62 /* Icomoon.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Icomoon.h; sourceTree = "<group>"; };
 		8FFB56301C2D7BFB00D2BE62 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8FFB56431C2D852F00D2BE62 /* Icomoon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Icomoon.swift; sourceTree = "<group>"; };
+		8FFB56511C2D8C3F00D2BE62 /* Font.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Font.swift; sourceTree = "<group>"; };
+		8FFB56541C2DAC3D00D2BE62 /* font.ttf */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = font.ttf; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -46,6 +52,9 @@
 		8FFB562D1C2D7BFB00D2BE62 /* Icomoon */ = {
 			isa = PBXGroup;
 			children = (
+				8FFB56541C2DAC3D00D2BE62 /* font.ttf */,
+				8FFB56431C2D852F00D2BE62 /* Icomoon.swift */,
+				8FFB56511C2D8C3F00D2BE62 /* Font.swift */,
 				8FFB562E1C2D7BFB00D2BE62 /* Icomoon.h */,
 				8FFB56301C2D7BFB00D2BE62 /* Info.plist */,
 			);
@@ -120,6 +129,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FFB56551C2DAC3D00D2BE62 /* font.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,6 +140,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FFB56521C2D8C3F00D2BE62 /* Font.swift in Sources */,
+				8FFB56441C2D852F00D2BE62 /* Icomoon.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -228,28 +240,33 @@
 		8FFB56341C2D7BFB00D2BE62 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Icomoon/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.optonaut.Icomoon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
 		8FFB56351C2D7BFB00D2BE62 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Icomoon/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.optonaut.Icomoon;
 				PRODUCT_NAME = "$(TARGET_NAME)";
