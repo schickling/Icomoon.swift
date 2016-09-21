@@ -14,14 +14,15 @@ private class FontLoader {
         let fontURL = bundle.URLForResource("font", withExtension: "ttf")!
         let data = NSData(contentsOfURL: fontURL)!
         
-        let provider = CGDataProviderCreateWithCFData(data)
-        let font = CGFontCreateWithDataProvider(provider)!
-        
-        var error: Unmanaged<CFError>?
-        if !CTFontManagerRegisterGraphicsFont(font, &error) {
-            let errorDescription: CFStringRef = CFErrorCopyDescription(error!.takeUnretainedValue())
-            let nsError = error!.takeUnretainedValue() as AnyObject as! NSError
-            NSException(name: NSInternalInconsistencyException, reason: errorDescription as String, userInfo: [NSUnderlyingErrorKey: nsError]).raise()
+        if let provider = CGDataProviderCreateWithCFData(data) {
+            let font = CGFontCreateWithDataProvider(provider)
+            
+            var error: Unmanaged<CFError>?
+            if !CTFontManagerRegisterGraphicsFont(font, &error) {
+                let errorDescription: CFStringRef = CFErrorCopyDescription(error!.takeUnretainedValue())
+                let nsError = error!.takeUnretainedValue() as AnyObject as! NSError
+                NSException(name: NSInternalInconsistencyException, reason: errorDescription as String, userInfo: [NSUnderlyingErrorKey: nsError]).raise()
+            }
         }
     }
 }
@@ -59,7 +60,7 @@ public extension UIImage {
         attributedString.drawInRect(CGRect(origin: CGPointZero, size: size))
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        return image
+        return image!
     }
 }
 
