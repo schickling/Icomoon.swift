@@ -1,7 +1,7 @@
 install:
-	cp -r . /usr/local/lib/icomoon-swift
+	rsync -r . /usr/local/lib/icomoon-swift
 	chmod +x run.sh
-	cp run.sh /usr/local/bin/icomoon-swift
+	rsync run.sh /usr/local/bin/icomoon-swift
 
 uninstall:
 	rm -rf /usr/local/lib/icomoon-swift
