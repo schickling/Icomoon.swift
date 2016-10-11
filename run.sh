@@ -12,7 +12,7 @@ set -e
 ######################
 # Options
 ######################
-LIB_DIR="/usr/local/lib/icomoon-swift"
+LIB_DIR="/Users/wbuck/Solutions/Icomoon"
 BUILD_DIR="/tmp/icomoon-build"
 FRAMEWORK_NAME="Icomoon"
 SIMULATOR_LIBRARY_PATH="${BUILD_DIR}/iphonesimulator/${FRAMEWORK_NAME}.framework"
@@ -49,8 +49,8 @@ unzip "$1" -d "${BUILD_DIR}"
 
 cd "${BUILD_DIR}"
 
-SVG_FONT=$(ls fonts/*.svg)
-TTF_FONT=$(ls fonts/*.ttf)
+SVG_FONT=$(ls ./fonts/*.svg)
+TTF_FONT=$(ls ./fonts/*.ttf)
 
 python parse.py "$SVG_FONT" > "${FRAMEWORK_NAME}/Font.swift"
 cp "$TTF_FONT" "${FRAMEWORK_NAME}/font.ttf"

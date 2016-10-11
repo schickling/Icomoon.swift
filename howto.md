@@ -1,0 +1,11 @@
+- delete ./Icomoon
+- delete your_icon_font.zip
+- copy new_icon_font to ./
+- run.sh new_icon_font.zip
+- remove Icomoon framework from xcode project > Kalido > Builds > Resources
+- drop new framework into xcode > Kalido > Builds > Resources
+  - check all environments!
+- in project settings > build phases, for each environment:
+  - under "embed frameworks" (last or so step)
+  - add
+  - select icomoon
