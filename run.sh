@@ -12,7 +12,7 @@ set -e
 ######################
 # Options
 ######################
-LIB_DIR="/usr/local/lib/icomoon-swift"
+LIB_DIR="/Users/wbuck/Solutions/Icomoon"
 BUILD_DIR="/tmp/icomoon-build"
 FRAMEWORK_NAME="Icomoon"
 SIMULATOR_LIBRARY_PATH="${BUILD_DIR}/iphonesimulator/${FRAMEWORK_NAME}.framework"
@@ -60,9 +60,9 @@ cp "$TTF_FONT" "${FRAMEWORK_NAME}/font.ttf"
 # Build Frameworks
 ######################
 
-xcodebuild -sdk iphonesimulator -configuration "Release" clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/iphonesimulator TOOLCHAINS=com.apple.dt.toolchain.Swift_2_3
+xcodebuild -sdk iphonesimulator -configuration "Release" clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/iphonesimulator
 
-xcodebuild -sdk iphoneos -configuration "Release" clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/iphoneos TOOLCHAINS=com.apple.dt.toolchain.Swift_2_3
+xcodebuild -sdk iphoneos -configuration "Release" clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/iphoneos
 
 
 ######################
