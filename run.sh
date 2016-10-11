@@ -12,7 +12,7 @@ set -e
 ######################
 # Options
 ######################
-LIB_DIR="/Users/wbuck/Solutions/Icomoon"
+LIB_DIR="/usr/local/lib/icomoon-swift"
 BUILD_DIR="/tmp/icomoon-build"
 FRAMEWORK_NAME="Icomoon"
 SIMULATOR_LIBRARY_PATH="${BUILD_DIR}/iphonesimulator/${FRAMEWORK_NAME}.framework"
