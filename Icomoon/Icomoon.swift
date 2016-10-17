@@ -28,14 +28,14 @@ private class FontLoader {
 }
 
 public extension UIFont {
+    private static var _loaded = false
+    
     public static func iconOfSize(_ fontSize: CGFloat) -> UIFont {
-        struct Static {
-            static var onceToken : Int = {
-                if UIFont.fontNames(forFamilyName: Font.FontName).count == 0 {
-                    FontLoader.loadFont()
-                }
-                return 0
-            }()
+        if !_loaded {
+            if UIFont.fontNames(forFamilyName: Font.FontName).count == 0 {
+                FontLoader.loadFont()
+            }
+            _loaded = true
         }
         
         return UIFont(name: Font.FontName, size: fontSize)!
