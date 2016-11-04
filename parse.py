@@ -17,10 +17,14 @@ internal struct Font {
 public enum Icon: String {
 """ % font_name
 
+temp_list = []
 glyph_count = 0
 for glyph in doc.getElementsByTagName('glyph'):
     name = glyph.getAttribute('glyph-name')
-    if name:
+    if name and name not in temp_list:
+        temp_list.append(name)
+        if(name[0].isdigit()):
+            name = "_"+name
         name = name.title().replace('-', '')
         unicode = glyph.getAttribute('unicode')
         unicode = unicode.encode('unicode-escape').decode()

@@ -49,8 +49,8 @@ unzip "$1" -d "${BUILD_DIR}"
 
 cd "${BUILD_DIR}"
 
-SVG_FONT=$(ls fonts/*.svg)
-TTF_FONT=$(ls fonts/*.ttf)
+SVG_FONT=$(ls ./fonts/*.svg)
+TTF_FONT=$(ls ./fonts/*.ttf)
 
 python parse.py "$SVG_FONT" > "${FRAMEWORK_NAME}/Font.swift"
 cp "$TTF_FONT" "${FRAMEWORK_NAME}/font.ttf"
