@@ -61,6 +61,21 @@ public extension UIImage {
         UIGraphicsEndImageContext()
         return image!
     }
+    public static func icomoonIcon(name: Icon, textColor: UIColor, size: CGSize, backgroundColor: UIColor = UIColor.clear) -> UIImage {
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = NSTextAlignment.center
+        
+        // Taken from FontAwesome.io's Fixed Width Icon CSS
+        let fontAspectRatio: CGFloat = 1.28571429
+        
+        let fontSize = min(size.width / fontAspectRatio, size.height)
+        let attributedString = NSAttributedString(string: String.iconWithName(name) as String, attributes: [NSFontAttributeName: UIFont.iconOfSize(fontSize), NSForegroundColorAttributeName: textColor, NSBackgroundColorAttributeName: backgroundColor, NSParagraphStyleAttributeName: paragraph])
+        UIGraphicsBeginImageContextWithOptions(size, false , 0.0)
+        attributedString.draw(in: CGRect(x: 0, y: (size.height - fontSize) / 2, width: size.width, height: fontSize))
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return image!
+    }
 }
 
 public extension String {
