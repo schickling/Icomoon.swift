@@ -60,14 +60,14 @@ cp "$TTF_FONT" "${FRAMEWORK_NAME}/font.ttf"
 # Build Frameworks
 ######################
 
-xcodebuild -sdk iphonesimulator -configuration "Release" clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/iphonesimulator
+xcodebuild -sdk iphonesimulator -configuration "Release" clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/iphonesimulator ENABLE_BITCODE=YES
 
-xcodebuild -sdk iphoneos -configuration "Release" clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/iphoneos
+xcodebuild -sdk iphoneos -configuration "Release" clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/iphoneos ENABLE_BITCODE=YES
 
 
 ######################
 # Copy files Framework
-######################
+#####################
 
 cp -r "${DEVICE_LIBRARY_PATH}/." "${FRAMEWORK}"
 cp -r "${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/." "${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule"
