@@ -30,7 +30,7 @@ searchIcon.font = UIFont.iconOfSize(30)
 
 ### Strip Architectures
 
-![](http://i.imgur.com/gmXJXPg.jpg)
+![](https://imgur.com/a/43bb3Dh.jpg)
 
 In order to submit to App Store, you'll need to automatically strip unsupported Architectures. Add this Run Script to you Build Phases, AFTER *Embed Frameworks*:
 
