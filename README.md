@@ -1,20 +1,7 @@
 # Icomoon.swift
-Use your **Icomoon fonts with Swift** - auto-generates type safe enums for each icon
-
-## Installation
-
-1. [Download](https://github.com/optonaut/Icomoon.swift/archive/master.zip) or clone this repo.
-2. Run `make`. That's it. (You can run `make uninstall` to uninstall.)
+Use your **[Icomoon](https://icomoon.io/) fonts with Swift** - auto-generates type safe enums for each icon
 
 ## Usage
-
-### Generate framework
-
-![](https://raw.githubusercontent.com/optonaut/Icomoon.swift/master/resources/readme.png)
-
-1. Download your font file from Icomoon (usally called `icomoon.zip`)
-2. Run `icomoon-swift icomoon.zip`
-3. Add the generated `Icomoon.framework` to your Xcode project and create a [copy-frameworks](https://github.com/Carthage/Carthage#if-youre-building-for-ios) step in your build phases
 
 ### API
 
@@ -23,16 +10,57 @@ The generated framework extends `UIFont`, `UIImage` and `String` and generates a
 ```swift
 import Icomoon
 
-let searchIcon = UILabel()
+//UILabel
 searchIcon.text = String.iconWithName(.MySearch)
 searchIcon.font = UIFont.iconOfSize(30)
+
+//UIButton
+buttonChat.titleLabel?.font = UIFont.iconOfSize(30)
+buttonChat.setTitle(String.iconWithName(.Chat), for: .normal)
+
+//UIImage
+myImage.image = UIImage.icomoonIcon(name: .Chat, textColor: UIColor.black, size: CGSize(width:myImage.frame.width, height:myImage.frame.height))
 ```
+## Installation
+
+### Download and Make
+
+1. [Download](https://github.com/optonaut/Icomoon.swift/archive/master.zip) or clone this repo.
+2. Run `make`. That's it. (You can run `make uninstall` to uninstall.)
+
+### Generate framework
+
+![](https://raw.githubusercontent.com/optonaut/Icomoon.swift/master/resources/readme.png)
+
+1. Download your font file from Icomoon (usally called `icomoon.zip`)
+2. Run `icomoon-swift icomoon.zip`
+3. Add the generated `Icomoon.framework` to your Xcode project by following the import instructions below.
+
+### Import Framework
+
+Copy to root of Project
+
+Project -> Target -> General -> Linked Frameworks and Libraries
+
+Add `Icomoon.framework`
+
+![](http://imgur.com/mkLwS8V.jpg)
+
+### Embed Framework
+
+Project -> Target -> Build Phases
+
+Add a New Section ("New Copy Files Phase"), titled "Embed Frameworks" (if not exist)
+
+Add `Icomoon.framework`
+
+![](http://imgur.com/xtBJosJ.jpg)
 
 ### Strip Architectures
 
 ![](https://imgur.com/a/43bb3Dh.jpg)
 
-In order to submit to App Store, you'll need to automatically strip unsupported Architectures. Add this Run Script to you Build Phases, AFTER *Embed Frameworks*:
+In order to submit to App Store, you'll need to automatically strip unsupported architectures (i386 simulator). Add this "Run Script" to you Build Phases, AFTER *Embed Frameworks*, or as the final entry.
 
 ```
 APP_PATH="${TARGET_BUILD_DIR}/${WRAPPER_NAME}"
