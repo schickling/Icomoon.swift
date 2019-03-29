@@ -50,9 +50,9 @@ public extension UIImage {
         paragraph.lineBreakMode = .byWordWrapping
         paragraph.alignment = .center
         let attributes = [
-            NSAttributedStringKey.font: UIFont.iconOfSize(fontSize),
-            NSAttributedStringKey.foregroundColor: textColor,
-            NSAttributedStringKey.paragraphStyle: paragraph
+            NSAttributedString.Key.font: UIFont.iconOfSize(fontSize),
+            NSAttributedString.Key.foregroundColor: textColor,
+            NSAttributedString.Key.paragraphStyle: paragraph
         ]
         let attributedString = NSAttributedString(string: String.iconWithName(name) as String, attributes: attributes)
         let stringSize = sizeOfAttributeString(attributedString)
@@ -74,10 +74,10 @@ public extension UIImage {
         let attributedString = NSAttributedString(
             string: String.iconWithName(name) as String,
             attributes: [
-                NSAttributedStringKey.font: UIFont.iconOfSize(fontSize),
-                NSAttributedStringKey.foregroundColor: textColor,
-                NSAttributedStringKey.backgroundColor: backgroundColor,
-                NSAttributedStringKey.paragraphStyle: paragraph
+                NSAttributedString.Key.font: UIFont.iconOfSize(fontSize),
+                NSAttributedString.Key.foregroundColor: textColor,
+                NSAttributedString.Key.backgroundColor: backgroundColor,
+                NSAttributedString.Key.paragraphStyle: paragraph
             ]
         )
         UIGraphicsBeginImageContextWithOptions(size, false , 0.0)
