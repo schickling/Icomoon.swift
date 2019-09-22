@@ -32,7 +32,7 @@ private class FontLoader {
 public extension UIFont {
     private static var _loaded = false
     
-    public static func iconOfSize(_ fontSize: CGFloat) -> UIFont {
+    static func iconOfSize(_ fontSize: CGFloat) -> UIFont {
         if !_loaded {
             if UIFont.fontNames(forFamilyName: Font.FontName).count == 0 {
                 FontLoader.loadFont()
@@ -45,7 +45,7 @@ public extension UIFont {
 }
 
 public extension UIImage {
-    public static func iconWithName(_ name: Icon, textColor: UIColor, fontSize: CGFloat, offset: CGSize = CGSize.zero) -> UIImage {
+    static func iconWithName(_ name: Icon, textColor: UIColor, fontSize: CGFloat, offset: CGSize = CGSize.zero) -> UIImage {
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineBreakMode = .byWordWrapping
         paragraph.alignment = .center
@@ -63,7 +63,7 @@ public extension UIImage {
         UIGraphicsEndImageContext()
         return image!
     }
-    public static func icomoonIcon(name: Icon, textColor: UIColor, size: CGSize, backgroundColor: UIColor = UIColor.clear) -> UIImage {
+    static func icomoonIcon(name: Icon, textColor: UIColor, size: CGSize, backgroundColor: UIColor = UIColor.clear) -> UIImage {
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = NSTextAlignment.center
         
@@ -89,7 +89,7 @@ public extension UIImage {
 }
 
 public extension String {
-    public static func iconWithName(_ name: Icon) -> String {
+    static func iconWithName(_ name: Icon) -> String {
         return String(name.rawValue[..<name.rawValue.index(name.rawValue.startIndex, offsetBy: 1)])
     }
 }
