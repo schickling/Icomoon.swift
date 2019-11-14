@@ -11,26 +11,28 @@ import UIKit
 private class FontLoader {
     class func loadFont() {
         let bundle = Bundle(for: FontLoader.self)
-        let fontURL = bundle.url(forResource: "font", withExtension: "ttf")!
-        let data = try! Data(contentsOf: fontURL)
         
-        if let provider = CGDataProvider(data: data as CFData) {
+        let fontURL = bundle.url(forResource: "font", withExtension: "ttf")!
+        guard
+            let data = try? Data(contentsOf: fontURL),
+            let provider = CGDataProvider(data: data as CFData),
             let font = CGFont(provider)
-            
-            var error: Unmanaged<CFError>?
-            if !CTFontManagerRegisterGraphicsFont(font, &error) {
-                let errorDescription: CFString = CFErrorCopyDescription(error!.takeUnretainedValue())
-                let nsError = error!.takeUnretainedValue() as AnyObject as! NSError
-                NSException(name: NSExceptionName.internalInconsistencyException, reason: errorDescription as String, userInfo: [NSUnderlyingErrorKey: nsError]).raise()
-            }
+            else { return }
+
+        var error: Unmanaged<CFError>?
+        if !CTFontManagerRegisterGraphicsFont(font, &error) {
+            let errorDescription: CFString = CFErrorCopyDescription(error!.takeUnretainedValue())
+            let nsError = error!.takeUnretainedValue() as AnyObject as! NSError
+            NSException(name: NSExceptionName.internalInconsistencyException, reason: errorDescription as String, userInfo: [NSUnderlyingErrorKey: nsError]).raise()
         }
+
     }
 }
 
 public extension UIFont {
     private static var _loaded = false
     
-    public static func iconOfSize(_ fontSize: CGFloat) -> UIFont {
+    static func iconOfSize(_ fontSize: CGFloat) -> UIFont {
         if !_loaded {
             if UIFont.fontNames(forFamilyName: Font.FontName).count == 0 {
                 FontLoader.loadFont()
@@ -43,14 +45,14 @@ public extension UIFont {
 }
 
 public extension UIImage {
-    public static func iconWithName(_ name: Icon, textColor: UIColor, fontSize: CGFloat, offset: CGSize = CGSize.zero) -> UIImage {
+    static func iconWithName(_ name: Icon, textColor: UIColor, fontSize: CGFloat, offset: CGSize = CGSize.zero) -> UIImage {
         let paragraph = NSMutableParagraphStyle()
         paragraph.lineBreakMode = .byWordWrapping
         paragraph.alignment = .center
         let attributes = [
-            NSFontAttributeName: UIFont.iconOfSize(fontSize),
-            NSForegroundColorAttributeName: textColor,
-            NSParagraphStyleAttributeName: paragraph
+            NSAttributedString.Key.font: UIFont.iconOfSize(fontSize),
+            NSAttributedString.Key.foregroundColor: textColor,
+            NSAttributedString.Key.paragraphStyle: paragraph
         ]
         let attributedString = NSAttributedString(string: String.iconWithName(name) as String, attributes: attributes)
         let stringSize = sizeOfAttributeString(attributedString)
@@ -61,7 +63,7 @@ public extension UIImage {
         UIGraphicsEndImageContext()
         return image!
     }
-    public static func icomoonIcon(name: Icon, textColor: UIColor, size: CGSize, backgroundColor: UIColor = UIColor.clear) -> UIImage {
+    static func icomoonIcon(name: Icon, textColor: UIColor, size: CGSize, backgroundColor: UIColor = UIColor.clear) -> UIImage {
         let paragraph = NSMutableParagraphStyle()
         paragraph.alignment = NSTextAlignment.center
         
@@ -69,7 +71,15 @@ public extension UIImage {
         let fontAspectRatio: CGFloat = 1.28571429
         
         let fontSize = min(size.width / fontAspectRatio, size.height)
-        let attributedString = NSAttributedString(string: String.iconWithName(name) as String, attributes: [NSFontAttributeName: UIFont.iconOfSize(fontSize), NSForegroundColorAttributeName: textColor, NSBackgroundColorAttributeName: backgroundColor, NSParagraphStyleAttributeName: paragraph])
+        let attributedString = NSAttributedString(
+            string: String.iconWithName(name) as String,
+            attributes: [
+                NSAttributedString.Key.font: UIFont.iconOfSize(fontSize),
+                NSAttributedString.Key.foregroundColor: textColor,
+                NSAttributedString.Key.backgroundColor: backgroundColor,
+                NSAttributedString.Key.paragraphStyle: paragraph
+            ]
+        )
         UIGraphicsBeginImageContextWithOptions(size, false , 0.0)
         attributedString.draw(in: CGRect(x: 0, y: (size.height - fontSize) / 2, width: size.width, height: fontSize))
         let image = UIGraphicsGetImageFromCurrentImageContext()
@@ -79,8 +89,8 @@ public extension UIImage {
 }
 
 public extension String {
-    public static func iconWithName(_ name: Icon) -> String {
-        return name.rawValue.substring(to: name.rawValue.characters.index(name.rawValue.startIndex, offsetBy: 1))
+    static func iconWithName(_ name: Icon) -> String {
+        return String(name.rawValue[..<name.rawValue.index(name.rawValue.startIndex, offsetBy: 1)])
     }
 }
 

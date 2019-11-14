@@ -58,9 +58,9 @@ Add `Icomoon.framework`
 
 ### Strip Architectures
 
-In order to submit to App Store, you'll need to automatically strip unsupported architectures (i386 simulator). Add this "Run Script" to you Build Phases, AFTER *Embed Frameworks*, or as the final entry.
+![](https://imgur.com/a/43bb3Dh.jpg)
 
-![](http://i.imgur.com/gmXJXPg.jpg)
+In order to submit to App Store, you'll need to automatically strip unsupported architectures (i386 simulator). Add this "Run Script" to you Build Phases, AFTER *Embed Frameworks*, or as the final entry.
 
 ```
 APP_PATH="${TARGET_BUILD_DIR}/${WRAPPER_NAME}"
