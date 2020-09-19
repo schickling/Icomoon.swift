@@ -18,6 +18,7 @@ FRAMEWORK_NAME="Icomoon"
 SIMULATOR_ARCHIVE="$BUILD_DIR/$FRAMEWORK_NAME.framework-iphoneos.xcarchive"
 DEVICE_ARCHIVE="$BUILD_DIR/$FRAMEWORK_NAME.framework-iphonesimulator.xcarchive"
 CATALYST_ARCHIVE="$BUILD_DIR/$FRAMEWORK_NAME.framework-catalyst.xcarchive"
+MAIN_DIR="$(pwd)"
 RESULT_FRAMEWORK="$(pwd)/${FRAMEWORK_NAME}.xcframework"
 
 
@@ -81,4 +82,4 @@ xcodebuild archive -workspace "$FRAMEWORK_NAME.xcworkspace" -scheme "$FRAMEWORK_
 
 xcodebuild -create-xcframework -framework "$SIMULATOR_ARCHIVE/Products/Library/Frameworks/$FRAMEWORK_NAME.framework" -framework "$DEVICE_ARCHIVE/Products/Library/Frameworks/$FRAMEWORK_NAME.framework" -framework "$CATALYST_ARCHIVE/Products/Library/Frameworks/$FRAMEWORK_NAME.framework" -output "$RESULT_FRAMEWORK"
 
-open .
+open "$MAIN_DIR"
