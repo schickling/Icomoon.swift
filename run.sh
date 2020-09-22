@@ -15,11 +15,11 @@ set -e
 LIB_DIR="/usr/local/lib/icomoon-swift"
 BUILD_DIR="/tmp/icomoon-build"
 FRAMEWORK_NAME="Icomoon"
-SIMULATOR_LIBRARY_PATH="${BUILD_DIR}/iphonesimulator/${FRAMEWORK_NAME}.framework"
-DEVICE_LIBRARY_PATH="${BUILD_DIR}/iphoneos/${FRAMEWORK_NAME}.framework"
-UNIVERSAL_LIBRARY_DIR="${BUILD_DIR}/iphoneuniversal"
-FRAMEWORK="${UNIVERSAL_LIBRARY_DIR}/${FRAMEWORK_NAME}.framework"
-RESULT_FRAMEWORK="$(pwd)/${FRAMEWORK_NAME}.framework"
+SIMULATOR_ARCHIVE="$BUILD_DIR/$FRAMEWORK_NAME.framework-iphoneos.xcarchive"
+DEVICE_ARCHIVE="$BUILD_DIR/$FRAMEWORK_NAME.framework-iphonesimulator.xcarchive"
+CATALYST_ARCHIVE="$BUILD_DIR/$FRAMEWORK_NAME.framework-catalyst.xcarchive"
+MAIN_DIR="$(pwd)"
+RESULT_FRAMEWORK="$(pwd)/${FRAMEWORK_NAME}.xcframework"
 
 
 ######################
@@ -30,8 +30,6 @@ rm -rf "${RESULT_FRAMEWORK}"
 rm -rf "${BUILD_DIR}"
 
 mkdir -p "${BUILD_DIR}"
-mkdir "${UNIVERSAL_LIBRARY_DIR}"
-mkdir "${FRAMEWORK}"
 
 cp -r "${LIB_DIR}/." "${BUILD_DIR}"
 
@@ -60,30 +58,28 @@ cp "$TTF_FONT" "${FRAMEWORK_NAME}/font.ttf"
 # Build Frameworks
 ######################
 
-xcodebuild -sdk iphonesimulator -configuration "Release" clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/iphonesimulator ENABLE_BITCODE=YES
+# Device slice.
+xcodebuild archive -workspace "$FRAMEWORK_NAME.xcworkspace" -scheme "$FRAMEWORK_NAME" -configuration Release -destination 'generic/platform=iOS' -archivePath "$SIMULATOR_ARCHIVE" SKIP_INSTALL=NO
 
-xcodebuild -sdk iphoneos -configuration "Release" clean build CONFIGURATION_BUILD_DIR=${BUILD_DIR}/iphoneos ENABLE_BITCODE=YES
+# Simulator slice.
+xcodebuild archive -workspace "$FRAMEWORK_NAME.xcworkspace" -scheme "$FRAMEWORK_NAME" -configuration Release -destination 'generic/platform=iOS Simulator' -archivePath "$DEVICE_ARCHIVE" SKIP_INSTALL=NO
+
+# Mac Catalyst slice.
+xcodebuild archive -workspace "$FRAMEWORK_NAME.xcworkspace" -scheme "$FRAMEWORK_NAME" -configuration Release -destination 'platform=macOS,arch=x86_64,variant=Mac Catalyst' -archivePath "$CATALYST_ARCHIVE" SKIP_INSTALL=NO
 
 
 ######################
 # Copy files Framework
 #####################
 
-cp -r "${DEVICE_LIBRARY_PATH}/." "${FRAMEWORK}"
-cp -r "${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/." "${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule"
+#cp -r "${DEVICE_LIBRARY_PATH}/." "${FRAMEWORK}"
+#cp -r "${SIMULATOR_LIBRARY_PATH}/Modules/${FRAMEWORK_NAME}.swiftmodule/." "${FRAMEWORK}/Modules/${FRAMEWORK_NAME}.swiftmodule"
 
 
 ######################
-# Make fat universal binary
+# Make XCFramework
 ######################
 
-lipo "${SIMULATOR_LIBRARY_PATH}/${FRAMEWORK_NAME}" "${DEVICE_LIBRARY_PATH}/${FRAMEWORK_NAME}" -create -output "${FRAMEWORK}/${FRAMEWORK_NAME}"
+xcodebuild -create-xcframework -framework "$SIMULATOR_ARCHIVE/Products/Library/Frameworks/$FRAMEWORK_NAME.framework" -framework "$DEVICE_ARCHIVE/Products/Library/Frameworks/$FRAMEWORK_NAME.framework" -framework "$CATALYST_ARCHIVE/Products/Library/Frameworks/$FRAMEWORK_NAME.framework" -output "$RESULT_FRAMEWORK"
 
-
-######################
-# Copy the result to current dir and open in finder
-######################
-
-cp -r "${FRAMEWORK}" "${RESULT_FRAMEWORK}"
-
-open "${RESULT_FRAMEWORK}"
+open "$MAIN_DIR"
